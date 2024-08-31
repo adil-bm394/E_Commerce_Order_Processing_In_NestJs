@@ -19,7 +19,11 @@ export class Order extends Document {
   @Prop({ required: true })
   quantity: number;
 
-  @Prop({ default: 'created' })
+  @Prop({
+    type: String,
+    enum: ['created', 'success','delivered'],
+    default: 'created',
+  })
   status: string;
 }
 

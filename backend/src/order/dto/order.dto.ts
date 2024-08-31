@@ -13,7 +13,4 @@ export class CreateOrderDto {
   @IsNotEmpty()
   quantity: number;
 
-  @IsNumber()
-  @IsNotEmpty()
-  status?: string;
 }

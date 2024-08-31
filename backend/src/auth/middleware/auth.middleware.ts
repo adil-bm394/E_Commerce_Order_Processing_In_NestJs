@@ -30,7 +30,7 @@ export class AuthMiddleware implements NestMiddleware {
       });
       const user = await this.userModel.findById(decoded.id);
 
-      //console.log("user in AuthMiddleware by decode",user);
+     // console.log("user in AuthMiddleware by decode",user);
 
       if (!user) {
         return res.status(statusCodes.NOT_FOUND).json({
@@ -40,6 +40,7 @@ export class AuthMiddleware implements NestMiddleware {
       }
 
       req.user = user; 
+      
       next();
     } catch (error) {
       console.error(`[AuthMiddleware] Authentication error: ${error.message}`);

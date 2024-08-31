@@ -31,7 +31,7 @@ import { JwtModule } from '@nestjs/jwt';
 
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('/create-order'); 
+    consumer.apply(AuthMiddleware).forRoutes('/order'); 
     
   }
 }
