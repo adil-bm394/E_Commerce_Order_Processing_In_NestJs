@@ -6,7 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './schemas/user.schema';
 import { ConfigService } from '@nestjs/config';
-import { AuthMiddleware } from './middleware/auth.middleware';
+
 
 @Module({
   imports: [
@@ -30,7 +30,6 @@ import { AuthMiddleware } from './middleware/auth.middleware';
   exports: [
     PassportModule,
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
-   
   ],
 })
 export class AuthModule {}

@@ -1,5 +1,3 @@
-// src/order/order.module.ts
-
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt'; // Import JwtModule

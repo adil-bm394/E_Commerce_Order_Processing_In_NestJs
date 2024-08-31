@@ -25,8 +25,12 @@ export class AuthMiddleware implements NestMiddleware {
     }
 
     try {
-      const decoded = this.jwtService.verify(token) as { id: string };
+     const decoded = await this.jwtService.verifyAsync(token, {
+         secret: process.env.JWT_SECRET,
+      });
       const user = await this.userModel.findById(decoded.id);
+
+      //console.log("user in AuthMiddleware by decode",user);
 
       if (!user) {
         return res.status(statusCodes.NOT_FOUND).json({
@@ -35,7 +39,7 @@ export class AuthMiddleware implements NestMiddleware {
         });
       }
 
-      req.user = user; // Attach user to request
+      req.user = user; 
       next();
     } catch (error) {
       console.error(`[AuthMiddleware] Authentication error: ${error.message}`);
