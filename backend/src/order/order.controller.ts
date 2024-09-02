@@ -16,7 +16,8 @@ export class OrderController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    const userId = req.user?.id;
+    const userId = req.user?.id;  
+    console.log("OrderControler  userId",userId); 
     if (!userId) {
       return res.status(statusCodes.UNAUTHORIZED).json({
         success: false,

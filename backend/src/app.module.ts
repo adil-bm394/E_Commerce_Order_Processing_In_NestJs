@@ -1,4 +1,9 @@
-import {  MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
@@ -20,23 +25,18 @@ import { PaymentModule } from './payment/payment.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGODB_URL),
-    OrderModule,
-    ShippingModule,
     AuthModule,
+    OrderModule,
+    PaymentModule,
+    ShippingModule,
     ProductModule,
     JwtModule,
-    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes(
-        { path: '/order', method: RequestMethod.ALL },
-        { path: '/payment', method: RequestMethod.ALL },
-      );
+    consumer.apply(AuthMiddleware).forRoutes('/order', '/payment');
   }
 }

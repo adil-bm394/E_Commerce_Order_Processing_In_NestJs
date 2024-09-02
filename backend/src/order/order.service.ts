@@ -15,6 +15,7 @@ export class OrderService {
   ) {}  
 
   async createOrder(createOrderDto: CreateOrderDto, userId: string): Promise<Order> {
+    console.log("[Order.Service] userId",userId)
     if (!userId) {
       throw new UnauthorizedException(messages.USER_NOT_AUTHORIZED);
     }
