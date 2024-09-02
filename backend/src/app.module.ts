@@ -1,4 +1,4 @@
-import {  MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import {  MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
@@ -11,6 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ProductModule } from './product/product.module';
 import { AuthMiddleware } from './auth/middleware/auth.middleware';
 import { JwtModule } from '@nestjs/jwt';
+import { PaymentModule } from './payment/payment.module';
 
 @Module({
   imports: [
@@ -23,15 +24,19 @@ import { JwtModule } from '@nestjs/jwt';
     ShippingModule,
     AuthModule,
     ProductModule,
-    JwtModule
+    JwtModule,
+    PaymentModule,
   ],
-  controllers: [AppController, PaymentController],
-  providers: [AppService, PaymentService],
+  controllers: [AppController],
+  providers: [AppService],
 })
-
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('/order'); 
-    
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes(
+        { path: '/order', method: RequestMethod.ALL },
+        { path: '/payment', method: RequestMethod.ALL },
+      );
   }
 }
