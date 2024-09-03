@@ -21,7 +21,7 @@ export class Order extends Document {
 
   @Prop({
     type: String,
-    enum: ['created', 'success','delivered'],
+    enum: ['created', 'confirmed', 'shipped'],
     default: 'created',
   })
   status: string;

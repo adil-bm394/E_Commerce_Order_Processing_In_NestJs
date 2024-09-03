@@ -17,6 +17,8 @@ export class PaymentController {
     @Res() res: Response,
   ): Promise<void> {
     const userId = req.user?.id;
+
+    //console.log('[payment Controller]createPaymentDto',createPaymentDto);
     if (!userId) {
         res.status(statusCodes.UNAUTHORIZED).json({
         success: false,
@@ -36,7 +38,7 @@ export class PaymentController {
       });
       return;
     } catch (error) {
-      console.log(`[payment Controller] error :${error}`)
+      console.log(`[payment Controller] error in CreatePayment :${error}`)
        res.status(statusCodes.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: error.message,

@@ -15,7 +15,7 @@ export class OrderService {
   ) {}  
 
   async createOrder(createOrderDto: CreateOrderDto, userId: string): Promise<Order> {
-    console.log("[Order.Service] userId",userId)
+    //console.log("[Order.Service] userId",userId)
     if (!userId) {
       throw new UnauthorizedException(messages.USER_NOT_AUTHORIZED);
     }
@@ -39,11 +39,11 @@ export class OrderService {
 
 
   //UPDATE ORDER STATUS
-  async updateOrder(
-    id: string,
+  async updateOrderStatus(
+    orderId:string,
     updateOrderDto: UpdateOrderDto,
   ): Promise<Order> {
-    const order = await this.orderModel.findById(id).exec();
+    const order = await this.orderModel.findById(orderId).exec();
     if (!order) {
       throw new NotFoundException(messages.ORDER_NOT_FOUND);
     }

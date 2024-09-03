@@ -5,7 +5,7 @@ export class CreatePaymentDto {
   @IsString()
   orderId:string;
 
-  @IsNotEmpty()
-  @IsString()
-  status: string;
+  // @IsNotEmpty()
+  // @IsString()
+  // status: string;
 }

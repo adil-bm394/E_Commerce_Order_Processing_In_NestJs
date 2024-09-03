@@ -15,4 +15,5 @@ export const messages = {
   ORDER_UPDATED: 'Order has been updated successfully.',
   TOKEN_MISSING: 'Token Is Missing',
   INVALID_TOKEN: 'Token is Missmatch',
+  PAYMENT_FAILED: 'Payment processing failed. Please try again.',
 };

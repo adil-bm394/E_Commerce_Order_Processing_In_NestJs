@@ -9,8 +9,6 @@ import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
 import { ShippingModule } from './shipping/shipping.module';
 import { AuthModule } from './auth/auth.module';
-import { PaymentController } from './payment/payment.controller';
-import { PaymentService } from './payment/payment.service';
 import { OrderModule } from './order/order.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProductModule } from './product/product.module';
@@ -37,6 +35,6 @@ import { PaymentModule } from './payment/payment.module';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('/order', '/payment');
+    consumer.apply(AuthMiddleware).forRoutes('/order/create-order', '/payment');
   }
 }

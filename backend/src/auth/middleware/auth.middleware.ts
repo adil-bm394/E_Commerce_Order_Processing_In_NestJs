@@ -16,7 +16,7 @@ export class AuthMiddleware implements NestMiddleware {
 
   async use(req: Request, res: Response, next: NextFunction) {
     const token = req.headers.authorization?.split(' ')[1];
-    console.log("token in Authmiddleware",token);
+  //  console.log("token in Authmiddleware",token);
 
     if (!token) {
       return res.status(statusCodes.UNAUTHORIZED).json({
@@ -31,7 +31,7 @@ export class AuthMiddleware implements NestMiddleware {
       });
       const user = await this.userModel.findById(decoded.id);
 
-      console.log("user in AuthMiddleware by decode",user);
+      //console.log("user in AuthMiddleware by decode",user);
 
       if (!user) {
         return res.status(statusCodes.NOT_FOUND).json({

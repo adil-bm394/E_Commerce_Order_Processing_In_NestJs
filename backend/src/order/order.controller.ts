@@ -16,8 +16,8 @@ export class OrderController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    const userId = req.user?.id;  
-    console.log("OrderControler  userId",userId); 
+    const userId = req.user?.id;
+    //console.log("OrderControler  userId",userId);
     if (!userId) {
       return res.status(statusCodes.UNAUTHORIZED).json({
         success: false,
@@ -35,13 +35,14 @@ export class OrderController {
         newOrder,
       });
     } catch (error) {
+      console.log(`[Order Controller] error in CreateOrder:${error}`);
       return res
-        .status(error.getStatus())
+        .status(statusCodes.INTERNAL_SERVER_ERROR)
         .json({ success: false, message: error.message });
     }
   }
 
-//GET ORDER BY ID
+  //GET ORDER BY ID
   @Get(':id')
   async getOrder(@Param('id') id: string, @Res() res) {
     try {
@@ -52,22 +53,35 @@ export class OrderController {
         order,
       });
     } catch (error) {
-      return res.status(error.getStatus()).json({ success: 'false', message: error.message });
+      console.log(`[Order Controller] error in GetOrder:${error}`);
+      return res
+        .status(statusCodes.INTERNAL_SERVER_ERROR)
+        .json({ success: 'false', message: error.message });
     }
   }
 
-//UPDATE ORDER STATUS 
-  @Put(':id')
-  async updateOrder(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto, @Res() res) {
+  //UPDATE ORDER STATUS
+  @Put('/update-order')
+  async updateOrderStatus(
+    @Param('id') id: string,
+    @Body() updateOrderDto: UpdateOrderDto,
+    @Res() res,
+  ) {
     try {
-      const order = await this.orderService.updateOrder(id, updateOrderDto);
+      const order = await this.orderService.updateOrderStatus(
+        id,
+        updateOrderDto,
+      );
       return res.status(statusCodes.OK).json({
         success: 'true',
         message: messages.ORDER_UPDATED,
         order,
       });
     } catch (error) {
-      return res.status(error.getStatus()).json({ success: 'false', message: error.message });
+      console.log(`[Order Controller] error in UpdateOrderStatus:${error}`);
+      return res
+        .status(statusCodes.INTERNAL_SERVER_ERROR)
+        .json({ success: 'false', message: error.message });
     }
   }
 }
