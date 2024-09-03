@@ -61,7 +61,7 @@ export class OrderController {
   }
 
   //UPDATE ORDER STATUS
-  @Put('/update-order')
+  @Put('/update-order/:id')
   async updateOrderStatus(
     @Param('id') id: string,
     @Body() updateOrderDto: UpdateOrderDto,
