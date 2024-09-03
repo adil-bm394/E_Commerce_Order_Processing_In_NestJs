@@ -16,4 +16,7 @@ export const messages = {
   TOKEN_MISSING: 'Token Is Missing',
   INVALID_TOKEN: 'Token is Missmatch',
   PAYMENT_FAILED: 'Payment processing failed. Please try again.',
+  ORDERED_NOT_CONFIRMED: 'Order is not confirmed(May be payment not done)',
+  PARAM_ID_MISSSING:"Order Id is missing from Param",
+  ORDER_SHIPPED:"Product has been shipped"
 };
