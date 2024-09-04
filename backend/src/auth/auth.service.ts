@@ -22,7 +22,7 @@ export class AuthService {
   ) {}
 
   async signUp(signUpDto: SignUpDto) {
-    const { name, email, password } = signUpDto;
+    const { name, email, password ,address} = signUpDto;
 
     const existingUser = await this.userModel.findOne({ email });
     if (existingUser) {
@@ -35,6 +35,7 @@ export class AuthService {
       name,
       email,
       password: hashedPassword,
+      address,
     });
 
     return {
@@ -43,6 +44,7 @@ export class AuthService {
         id: user._id,
         name: user.name,
         email: user.email,
+        address:user.address
       },
     };
   }

@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Order } from '../order/schemas/order.schema';
 import { User } from '../auth/schemas/user.schema';
 import { messages } from '../utils/messages';
+import { sendNotification } from './emailService/emailNotification';
 
 
 @Injectable()
@@ -33,8 +34,16 @@ export class ShippingService {
     await order.save();
 
     const user = await this.UserModel.findById(order.userId);
+     user.password=undefined;
+ const orderDetail={
+    orderId:order.id,
+    product:order.product,
+    amount:order.totalAmount
+ }
+   // console.log("[shipping controlelr] user:",user);
+  // console.log('[shipping controlelr] order:', orderDetail);
     if (user) {
-      // await sendNotification(user, order.product); // Adjust the product parameter if needed
+     await sendNotification(user, orderDetail); 
     }
 
     return order;

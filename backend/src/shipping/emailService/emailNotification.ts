@@ -1,29 +1,28 @@
+import { getSubject } from "src/utils/messages";
 import { Product, User } from "../../utils/interface/types";
 const nodemailer = require('nodemailer');
-const serverConfig = require('../config/serverConfig');
-const getNotificationTemplate = require('./emailTemplate');
-const messages = require('../utils/messages');
-const getSubject = require('../utils/messages');
+const {getNotificationTemplate }= require('./emailTemplate');
+
 
 require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: serverConfig.mail,
-    pass: serverConfig.pass,
+    user: process.env.mail,
+    pass: process.env.pass,
   },
 });
 
-const sendNotification = (user:User, product:Product) => {
+export const sendNotification = (user:User, product:Product) => {
   try {
     const mailOptions = {
-      from: serverConfig.mail,
+      from: process.env.mail,
       to: user.email,
-      subject: getSubject(product),
-      html: getNotificationTemplate(user.name, product),
+      subject: getSubject(product.product),
+      html: getNotificationTemplate(user, product),
     };
-    console.log(`Notification sent for order ${product}`);
+    console.log(`Notification sent for order ${product.product}`);
     return transporter.sendMail(mailOptions);
   } catch (error) {
     console.error(
@@ -31,5 +30,3 @@ const sendNotification = (user:User, product:Product) => {
     );
   }
 };
-
-module.exports = sendNotification;

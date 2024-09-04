@@ -2,8 +2,11 @@
 export interface User {
   email: string;
   name: string;
+  address:string;
 }
 
 export interface Product {
-  name: string;
+  orderId: string;
+  product: string;
+  amount:Number;
 }
